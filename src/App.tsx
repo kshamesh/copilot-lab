@@ -1,36 +1,27 @@
-import { useState } from "react";
-import { CustomerManagement } from "./components/CustomerManagement";
 import { PostManagement } from "./components/PostManagement";
+import { API_CONFIG } from "./config/apiConfig";
 import "./App.css";
 
-type View = "customers" | "posts";
-
 function App() {
-  const [activeView, setActiveView] = useState<View>("customers");
+  const getApiLabel = () => {
+    if (API_CONFIG.baseUrl === "http://localhost:3000") {
+      return "📦 json-server (local db.json)";
+    }
+    if (API_CONFIG.baseUrl === "https://jsonplaceholder.typicode.com") {
+      return "🌐 JSONPlaceholder (fallback)";
+    }
+    return `🔗 ${API_CONFIG.baseUrl}`;
+  };
 
   return (
     <div className="app-container">
       <header className="app-header">
-        <h1>Data Management Dashboard</h1>
-        <nav className="app-nav">
-          <button
-            className={`nav-button ${activeView === "customers" ? "active" : ""}`}
-            onClick={() => setActiveView("customers")}
-          >
-            Customers
-          </button>
-          <button
-            className={`nav-button ${activeView === "posts" ? "active" : ""}`}
-            onClick={() => setActiveView("posts")}
-          >
-            Posts
-          </button>
-        </nav>
+        <h1>Post Management Dashboard</h1>
+        <p className="api-info">API: {getApiLabel()}</p>
       </header>
 
       <main className="app-main">
-        {activeView === "customers" && <CustomerManagement />}
-        {activeView === "posts" && <PostManagement />}
+        <PostManagement />
       </main>
     </div>
   );

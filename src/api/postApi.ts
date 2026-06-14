@@ -5,13 +5,12 @@ import type {
   UpdatePostRequest,
   PatchPostRequest,
 } from "../types/post";
-
-const API_BASE_URL = "https://jsonplaceholder.typicode.com";
+import { API_CONFIG } from "../config/apiConfig";
 
 export const postApi = createApi({
   reducerPath: "postApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: API_BASE_URL,
+    baseUrl: API_CONFIG.baseUrl,
   }),
   tagTypes: ["Post"],
   endpoints: (builder) => ({
@@ -24,7 +23,7 @@ export const postApi = createApi({
     // Get a single post by ID
     getPostById: builder.query<Post, number>({
       query: (id) => `/posts/${id}`,
-      providesTags: (_result, _error, id) => [{ type: 'Post', id }],
+      providesTags: (_result, _error, id) => [{ type: "Post", id }],
     }),
 
     // Get posts by userId
@@ -80,7 +79,7 @@ export const postApi = createApi({
       query: ({ id, ...body }) => ({
         url: `/posts/${id}`,
         method: "PUT",
-        body,
+        body: { id, ...body },
       }),
       invalidatesTags: (result) => [
         { type: "Post", id: result?.id },
@@ -123,7 +122,7 @@ export const postApi = createApi({
         url: `/posts/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: (_result, _error, id) => [
+      invalidatesTags: (result, _error, id) => [
         { type: "Post", id },
         { type: "Post", id: "LIST" },
       ],
