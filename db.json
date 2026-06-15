@@ -1,34 +1,82 @@
 {
   "posts": [
     {
-      "id": 1,
+      "id": "1",
       "title": "Introduction to React",
       "body": "React is a JavaScript library for building user interfaces with a component-based architecture.",
       "userId": 1
     },
     {
-      "id": 2,
+      "id": "2",
       "title": "Understanding State Management",
       "body": "State management is crucial for building scalable applications. Redux Toolkit simplifies this process significantly.",
       "userId": 1
     },
     {
-      "id": 3,
+      "id": "3",
       "title": "API Design Best Practices",
       "body": "RESTful API design follows conventions for creating scalable and maintainable web services.",
       "userId": 2
     },
     {
-      "id": 4,
+      "id": "4",
       "title": "TypeScript Tips",
       "body": "TypeScript provides static type checking which helps catch errors during development.",
       "userId": 2
     },
     {
-      "id": 5,
+      "id": "5",
       "title": "Modern Web Development",
       "body": "Today's web development ecosystem includes powerful tools like Vite, React, and TypeScript.",
       "userId": 3
     }
-  ]
+  ],
+  "products": [
+    {
+      "productName": "MacBook Pro",
+      "sku": "MBP-001",
+      "price": 2499.34,
+      "category": "Electronics",
+      "description": "Apple Laptop",
+      "active": true,
+      "id": "1"
+    },
+    {
+      "productName": "iPhone 15 Pro Max",
+      "sku": "IP15PM-001",
+      "price": 1099.99,
+      "category": "Electronics",
+      "description": "Apple Smartphone",
+      "active": true,
+      "id": "2"
+    },
+    {
+      "productName": "Samsung Galaxy S23 Ultra",
+      "sku": "SGS23U-001",
+      "price": 1199.99,
+      "category": "Electronics",
+      "description": "Samsung Smartphone - Test",
+      "active": true,
+      "id": "3"
+    },
+    {
+      "productName": "Sony WH-1000XM4 Headphones",
+      "sku": "SONYWH1000XM4-001",
+      "price": 349.99,
+      "category": "Audio",
+      "description": "Sony Noise-Canceling Headphones - Test",
+      "active": true,
+      "id": "4"
+    },
+    {
+      "productName": "Dell XPS 13 Laptop",
+      "sku": "DELLXPS13-001",
+      "price": 999.99,
+      "category": "Computers",
+      "description": "Dell Ultrabook Laptop - Test",
+      "active": true,
+      "id": "5"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }

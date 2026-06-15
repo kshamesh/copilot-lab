@@ -1,6 +1,8 @@
 import { PostManagement } from "./components/PostManagement";
 import { API_CONFIG } from "./config/apiConfig";
 import "./App.css";
+import ProductForm from "./components/features/products/ProductForm";
+import ProductPage from "./components/features/products/ProductPage";
 
 function App() {
   const getEnvironmentBadge = () => {
@@ -25,21 +27,22 @@ function App() {
   };
 
   return (
-    <div className="app-container">
-      <header className="app-header">
-        <h1>Post Management Dashboard</h1>
-        <div className="api-info">
-          <p>Environment: {getEnvironmentBadge()}</p>
-          <p style={{ fontSize: "12px", color: "#7f8c8d", marginTop: "5px" }}>
-            API: {API_CONFIG.baseUrl}
-          </p>
-        </div>
-      </header>
+    // <div className="app-container">
+    //   <header className="app-header">
+    //     <h1>Post Management Dashboard</h1>
+    //     <div className="api-info">
+    //       <p>Environment: {getEnvironmentBadge()}</p>
+    //       <p style={{ fontSize: "12px", color: "#7f8c8d", marginTop: "5px" }}>
+    //         API: {API_CONFIG.baseUrl}
+    //       </p>
+    //     </div>
+    //   </header>
 
-      <main className="app-main">
-        <PostManagement />
-      </main>
-    </div>
+    //   <main className="app-main">
+    //     <PostManagement />
+    //   </main>
+    // </div>
+    <ProductPage />
   );
 }
 
