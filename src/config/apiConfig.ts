@@ -1,30 +1,44 @@
-// Determine API base URL based on environment
-const getApiBaseUrl = (): string => {
-  // Check if we should use json-server
-  const useJsonServer = import.meta.env.VITE_USE_JSON_SERVER !== "false";
-  const jsonServerUrl =
-    import.meta.env.VITE_JSON_SERVER_URL || "http://localhost:3000";
-  const jsonPlaceholderUrl = "https://jsonplaceholder.typicode.com";
-  const productionUrl = import.meta.env.VITE_API_URL;
+// API Environment configuration
+export type ApiEnvironment =
+  | "local"
+  | "development"
+  | "qa"
+  | "uat"
+  | "production";
 
-  // Priority 1: Use json-server in development if enabled (default)
-  if (useJsonServer && import.meta.env.DEV) {
-    return jsonServerUrl;
+interface EnvironmentConfig {
+  env: ApiEnvironment;
+  baseUrl: string;
+  timeout: number;
+  isProduction: boolean;
+}
+
+const getEnvironmentConfig = (): EnvironmentConfig => {
+  const env = (import.meta.env.VITE_API_ENV as ApiEnvironment) || "local";
+  const baseUrl = import.meta.env.VITE_API_URL;
+  const timeout = parseInt(import.meta.env.VITE_API_TIMEOUT || "10000", 10);
+
+  if (!baseUrl) {
+    throw new Error(
+      `VITE_API_URL is not defined for environment: ${env}. Please check your .env files.`,
+    );
   }
 
-  // Priority 2: If production URL is explicitly set, use it
-  if (productionUrl) {
-    return productionUrl;
-  }
-
-  // Priority 3: Fallback to JSONPlaceholder (when json-server is disabled or not running)
-  return jsonPlaceholderUrl;
+  return {
+    env,
+    baseUrl,
+    timeout,
+    isProduction: env === "production",
+  };
 };
 
-export const API_CONFIG = {
-  baseUrl: getApiBaseUrl(),
-  useJsonServer: import.meta.env.VITE_USE_JSON_SERVER !== "false",
-  isDev: import.meta.env.DEV,
-  isProd: import.meta.env.PROD,
-  jsonPlaceholderUrl: "https://jsonplaceholder.typicode.com",
-};
+export const API_CONFIG = getEnvironmentConfig();
+
+// Log API config in development
+if (import.meta.env.DEV) {
+  console.log("🔧 API Configuration:", {
+    environment: API_CONFIG.env,
+    baseUrl: API_CONFIG.baseUrl,
+    timeout: API_CONFIG.timeout,
+  });
+}

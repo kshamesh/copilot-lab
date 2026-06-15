@@ -11,6 +11,17 @@ export const postApi = createApi({
   reducerPath: "postApi",
   baseQuery: fetchBaseQuery({
     baseUrl: API_CONFIG.baseUrl,
+    timeout: API_CONFIG.timeout,
+    // Add headers if needed (e.g., authorization)
+    prepareHeaders: (headers) => {
+      // Example: Add auth token if available
+      // const token = localStorage.getItem('authToken')
+      // if (token) {
+      //   headers.set('Authorization', `Bearer ${token}`)
+      // }
+      headers.set("Content-Type", "application/json");
+      return headers;
+    },
   }),
   tagTypes: ["Post"],
   endpoints: (builder) => ({
@@ -46,7 +57,6 @@ export const postApi = createApi({
         body,
       }),
       invalidatesTags: ["Post"],
-      // Optimistic update
       async onQueryStarted(request, { dispatch, queryFulfilled }) {
         const optimisticPost: Post = {
           id: Math.floor(Math.random() * 10000),
@@ -59,7 +69,6 @@ export const postApi = createApi({
         );
         try {
           const { data } = await queryFulfilled;
-          // Update with actual response data
           dispatch(
             postApi.util.updateQueryData("getPosts", undefined, (draft) => {
               const index = draft.findIndex((p) => p.id === optimisticPost.id);
@@ -85,7 +94,6 @@ export const postApi = createApi({
         { type: "Post", id: result?.id },
         { type: "Post", id: "LIST" },
       ],
-      // Optimistic update
       async onQueryStarted({ id, ...update }, { dispatch, queryFulfilled }) {
         const patchResult = dispatch(
           postApi.util.updateQueryData("getPosts", undefined, (draft) => {
@@ -126,7 +134,6 @@ export const postApi = createApi({
         { type: "Post", id },
         { type: "Post", id: "LIST" },
       ],
-      // Optimistic update
       async onQueryStarted(id, { dispatch, queryFulfilled }) {
         const patchResult = dispatch(
           postApi.util.updateQueryData("getPosts", undefined, (draft) => {
