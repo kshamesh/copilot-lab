@@ -1,12 +1,14 @@
-import { Controller } from "react-hook-form";
 import { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import "./ProductForm.css";
 
 import { productSchema, type ProductFormData } from "./productSchema";
 import type { Product } from "./product.types";
-import CategorySelect from "./CategorySelect";
+import { RHFTextField } from "../../../shared/forms/RHFTextField";
+import { RHFNumberField } from "../../../shared/forms/RHFNumberField";
+import { RHFTextarea } from "../../../shared/forms/RHFTextArea";
+import { RHFSelect } from "../../../shared/forms/RHFSelect";
 
 interface ProductFormProps {
   product?: Product;
@@ -14,24 +16,11 @@ interface ProductFormProps {
 }
 
 const ProductForm = ({ product, onSave }: ProductFormProps) => {
-  const {
-    register,
-    handleSubmit,
-    reset,
-    watch,
-    control,
-    formState: { errors },
-  } = useForm<ProductFormData>({
+  const methods = useForm<ProductFormData>({
     resolver: zodResolver(productSchema),
-    defaultValues: {
-      productName: "",
-      sku: "",
-      price: 0,
-      category: "",
-      description: "",
-      active: true,
-    },
   });
+
+  const { handleSubmit, reset, watch } = methods;
 
   console.log(watch());
   const price = watch("price");
@@ -59,86 +48,65 @@ const ProductForm = ({ product, onSave }: ProductFormProps) => {
     <div className="product-container">
       <h2>Product Management</h2>
 
-      <form className="product-form" onSubmit={handleSubmit(onSubmit)}>
-        <div className="form-group">
-          <label>Product Name</label>
-
-          <input type="text" {...register("productName")} />
-
-          {errors.productName && (
-            <span className="error">{errors.productName.message}</span>
-          )}
-        </div>
-
-        <div className="form-group">
-          <label>SKU</label>
-
-          <input type="text" {...register("sku")} />
-
-          {errors.sku && <span className="error">{errors.sku.message}</span>}
-        </div>
-
-        <div className="form-group">
-          <label>Price</label>
-
-          <input
-            type="number"
-            step="0.01"
-            {...register("price", {
-              valueAsNumber: true,
-            })}
+      <FormProvider {...methods}>
+        <form className="product-form" onSubmit={handleSubmit(onSubmit)}>
+          <RHFTextField<ProductFormData>
+            label="Product Name"
+            name="productName"
           />
 
-          {errors.price && (
-            <span className="error">{errors.price.message}</span>
-          )}
-          {price > 1000 && (
-            <div className="premium-banner">⭐ Premium Product</div>
-          )}
-        </div>
+          <RHFTextField<ProductFormData> label="SKU" name="sku" />
 
-        <div className="form-group">
-          {/* <label>Category</label>
+          <div>
+            <RHFNumberField<ProductFormData> label="Price" name="price" />
+            {price > 1000 && (
+              <div className="premium-banner">⭐ Premium Product</div>
+            )}
+          </div>
 
-          <select {...register("category")}>
-            <option value="">Select Category</option>
-            <option value="Electronics">Electronics</option>
-            <option value="Books">Books</option>
-            <option value="Furniture">Furniture</option>
-            <option value="Sports">Sports</option>
-          </select> */}
-          <Controller
-            name="category"
-            control={control}
-            render={({ field }) => {
-              console.log(field);
-              return (
-                <CategorySelect value={field.value} onChange={field.onChange} />
-              );
-            }}
+          <div className="form-group">
+            <RHFSelect<ProductFormData>
+              label="Category"
+              name="category"
+              options={[
+                { label: "Electronics", value: "Electronics" },
+                { label: "Clothing", value: "Clothing" },
+                { label: "Books", value: "Books" },
+              ]}
+            />
+          </div>
+
+          {/* <div className="form-group">
+            <label>Description</label>
+
+            <textarea rows={4} {...register("description")} />
+          </div> */}
+
+          <RHFTextarea<ProductFormData>
+            label="Description"
+            name="description"
           />
 
-          {errors.category && (
-            <span className="error">{errors.category.message}</span>
-          )}
-        </div>
+          {/* <div className="checkbox-group">
+            <input type="checkbox" id="active" {...register("active")} />
 
-        <div className="form-group">
-          <label>Description</label>
+            <label htmlFor="active">Active Product</label>
+          </div> */}
+          <RHFTextField<ProductFormData>
+            label="Active"
+            name="active"
+            type="checkbox"
+          />
 
-          <textarea rows={4} {...register("description")} />
-        </div>
-
-        <div className="checkbox-group">
-          <input type="checkbox" id="active" {...register("active")} />
-
-          <label htmlFor="active">Active Product</label>
-        </div>
-
-        <button type="submit" className="save-btn">
-          Save Product
-        </button>
-      </form>
+          <button
+            type="submit"
+            className="save-btn"
+            onClick={handleSubmit(onSubmit)}
+          >
+            Save Product
+          </button>
+        </form>
+      </FormProvider>
     </div>
   );
 };

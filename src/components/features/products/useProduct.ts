@@ -2,6 +2,7 @@ import { useGetProductQuery, useUpdateProductMutation } from "./product.api";
 
 export const useProduct = (productId: number) => {
   const { data: product, isLoading, error } = useGetProductQuery(productId);
+  console.log("useProduct", product, isLoading, error);
 
   const [updateProduct, { isLoading: isSaving }] = useUpdateProductMutation();
 

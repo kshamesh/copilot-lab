@@ -5,7 +5,7 @@ export const productSchema = z.object({
 
   sku: z.string().min(2, "SKU is required"),
 
-  price: z.number().positive("Price must be greater than 0"),
+  price: z.coerce.number().positive("Price must be greater than 0"),
 
   category: z.string().min(1, "Category is required"),
 

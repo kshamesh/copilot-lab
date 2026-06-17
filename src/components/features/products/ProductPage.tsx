@@ -1,10 +1,11 @@
 import ProductForm from "./ProductForm";
 import { useProduct } from "./useProduct";
 
-const PRODUCT_ID = 2;
+const PRODUCT_ID = 3;
 
 export default function ProductPage() {
   const { product, isLoading, saveProduct } = useProduct(PRODUCT_ID);
+  console.log("ProductPage", product);
 
   const handleSave = async (data: any) => {
     if (!product) return;
