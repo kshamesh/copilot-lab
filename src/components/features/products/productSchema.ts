@@ -12,6 +12,14 @@ export const productSchema = z.object({
   description: z.string().optional(),
 
   active: z.boolean(),
+
+  tags: z
+    .array(
+      z.object({
+        value: z.string().min(1, "Tag is required"),
+      }),
+    )
+    .min(1, "At least one tag is required"),
 });
 
 export type ProductFormData = z.infer<typeof productSchema>;

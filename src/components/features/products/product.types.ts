@@ -6,4 +6,9 @@ export interface Product {
   category: string;
   description?: string;
   active: boolean;
+  tags: [
+    {
+      value: string;
+    },
+  ];
 }

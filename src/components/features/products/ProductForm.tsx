@@ -1,6 +1,7 @@
 import { useEffect } from "react";
-import { useForm, FormProvider } from "react-hook-form";
+import { useForm, FormProvider, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import {} from "react-hook-form";
 import "./ProductForm.css";
 
 import { productSchema, type ProductFormData } from "./productSchema";
@@ -20,7 +21,18 @@ const ProductForm = ({ product, onSave }: ProductFormProps) => {
     resolver: zodResolver(productSchema),
   });
 
-  const { handleSubmit, reset, watch } = methods;
+  const {
+    handleSubmit,
+    reset,
+    watch,
+    control,
+    formState: { errors },
+  } = methods;
+
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "tags",
+  });
 
   console.log(watch());
   const price = watch("price");
@@ -34,6 +46,7 @@ const ProductForm = ({ product, onSave }: ProductFormProps) => {
         category: product.category,
         description: product.description ?? "",
         active: product.active,
+        tags: product.tags?.length > 0 ? product.tags : [{ value: "" }],
       });
     }
   }, [product, reset]);
@@ -43,6 +56,8 @@ const ProductForm = ({ product, onSave }: ProductFormProps) => {
 
     await onSave?.(data);
   };
+
+  console.log("Errors", errors);
 
   return (
     <div className="product-container">
@@ -54,16 +69,13 @@ const ProductForm = ({ product, onSave }: ProductFormProps) => {
             label="Product Name"
             name="productName"
           />
-
           <RHFTextField<ProductFormData> label="SKU" name="sku" />
-
           <div>
             <RHFNumberField<ProductFormData> label="Price" name="price" />
             {price > 1000 && (
               <div className="premium-banner">⭐ Premium Product</div>
             )}
           </div>
-
           <div className="form-group">
             <RHFSelect<ProductFormData>
               label="Category"
@@ -75,34 +87,45 @@ const ProductForm = ({ product, onSave }: ProductFormProps) => {
               ]}
             />
           </div>
-
-          {/* <div className="form-group">
-            <label>Description</label>
-
-            <textarea rows={4} {...register("description")} />
-          </div> */}
-
           <RHFTextarea<ProductFormData>
             label="Description"
             name="description"
           />
-
-          {/* <div className="checkbox-group">
-            <input type="checkbox" id="active" {...register("active")} />
-
-            <label htmlFor="active">Active Product</label>
-          </div> */}
           <RHFTextField<ProductFormData>
             label="Active"
             name="active"
             type="checkbox"
           />
-
+          <h3>Tags</h3>
+          {fields.map((field, index) => (
+            <div key={field.id} className="tag-row">
+              <RHFTextField<ProductFormData>
+                label={`Tag ${index + 1}`}
+                name={`tags.${index}.value`}
+              />
+              <button
+                type="button"
+                // disabled={fields.length === 1}
+                onClick={() => remove(index)}
+              >
+                Remove
+              </button>
+            </div>
+          ))}
           <button
-            type="submit"
-            className="save-btn"
-            onClick={handleSubmit(onSubmit)}
+            type="button"
+            onClick={() =>
+              append({
+                value: "",
+              })
+            }
           >
+            Add Tag
+          </button>
+          {errors.tags?.root?.message && (
+            <p className="error">{errors.tags.root.message}</p>
+          )}
+          <button type="submit" className="save-btn">
             Save Product
           </button>
         </form>

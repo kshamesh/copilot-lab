@@ -1,4 +1,9 @@
-import { useFormContext, type FieldValues, type Path } from "react-hook-form";
+import {
+  get,
+  useFormContext,
+  type FieldValues,
+  type Path,
+} from "react-hook-form";
 
 type Props<T extends FieldValues> = {
   label: string;
@@ -15,7 +20,7 @@ export function RHFTextField<T extends FieldValues>({
     register,
     formState: { errors },
   } = useFormContext<T>();
-  const error = errors[name]?.message as string | undefined;
+  const error = get(errors, name)?.message as string | undefined;
   return (
     <div className="form-group">
       <label>{label}</label>

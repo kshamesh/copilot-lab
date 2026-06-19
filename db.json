@@ -57,6 +57,11 @@
       "category": "Electronics",
       "description": "Samsung Smartphone - Test",
       "active": true,
+      "tags": [
+        {
+          "value": "ffs"
+        }
+      ],
       "id": "3"
     },
     {
