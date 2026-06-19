@@ -1,30 +1,30 @@
-import { PostManagement } from "./components/PostManagement";
-import { API_CONFIG } from "./config/apiConfig";
+// import { PostManagement } from "./components/PostManagement";
+// import { API_CONFIG } from "./config/apiConfig";
 import "./App.css";
-import ProductForm from "./components/features/products/ProductForm";
+// import ProductForm from "./components/features/products/ProductForm";
 import ProductPage from "./components/features/products/ProductPage";
 
 function App() {
-  const getEnvironmentBadge = () => {
-    const badges: Record<string, { label: string; color: string }> = {
-      devlocal: { label: "📦 Local", color: "#27ae60" },
-      development: { label: "🔵 Dev", color: "#3498db" },
-      qa: { label: "🟡 QA", color: "#f39c12" },
-      uat: { label: "🟣 UAT", color: "#9b59b6" },
-      production: { label: "🔴 Production", color: "#e74c3c" },
-    };
+  // const getEnvironmentBadge = () => {
+  //   const badges: Record<string, { label: string; color: string }> = {
+  //     devlocal: { label: "📦 Local", color: "#27ae60" },
+  //     development: { label: "🔵 Dev", color: "#3498db" },
+  //     qa: { label: "🟡 QA", color: "#f39c12" },
+  //     uat: { label: "🟣 UAT", color: "#9b59b6" },
+  //     production: { label: "🔴 Production", color: "#e74c3c" },
+  //   };
 
-    const badge = badges[API_CONFIG.env] || {
-      label: "Unknown",
-      color: "#95a5a6",
-    };
+  //   const badge = badges[API_CONFIG.env] || {
+  //     label: "Unknown",
+  //     color: "#95a5a6",
+  //   };
 
-    return (
-      <span style={{ color: badge.color, fontWeight: "bold" }}>
-        {badge.label}
-      </span>
-    );
-  };
+  //   return (
+  //     <span style={{ color: badge.color, fontWeight: "bold" }}>
+  //       {badge.label}
+  //     </span>
+  //   );
+  // };
 
   return (
     // <div className="app-container">

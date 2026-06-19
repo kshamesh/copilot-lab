@@ -130,7 +130,7 @@ export const postApi = createApi({
         url: `/posts/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: (result, _error, id) => [
+      invalidatesTags: (_result, _error, id) => [
         { type: "Post", id },
         { type: "Post", id: "LIST" },
       ],

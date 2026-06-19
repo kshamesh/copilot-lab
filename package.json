@@ -1,4 +1,5 @@
 {
+  "homepage": "https://kshamesh.github.io/copilot-lab",
   "name": "copilot-lab",
   "private": true,
   "version": "0.0.0",
@@ -17,12 +18,15 @@
     "build:uat": "tsc -b && vite build --mode uat",
     "build:prod": "tsc -b && vite build --mode production",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.4.0",
     "@reduxjs/toolkit": "^2.12.0",
     "@testing-library/react": "^16.3.2",
+    "gh-pages": "^6.3.0",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
     "react-hook-form": "^7.79.0",
