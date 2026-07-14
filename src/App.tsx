@@ -3,8 +3,16 @@
 import "./App.css";
 // import ProductForm from "./components/features/products/ProductForm";
 import ProductPage from "./components/features/products/ProductPage";
+import { customerSaveOperation } from "./components/features/save-operations/registrations/customers.save-operation";
+import { productSaveOperation } from "./components/features/save-operations/registrations/product.save-operation";
+import { saveOperationRegistry } from "./components/features/save-operations/SaveOperationsRegistry";
 
 function App() {
+  saveOperationRegistry.clearAllRegistrations();
+  saveOperationRegistry.registerAll([
+    customerSaveOperation,
+    productSaveOperation,
+  ]);
   // const getEnvironmentBadge = () => {
   //   const badges: Record<string, { label: string; color: string }> = {
   //     devlocal: { label: "📦 Local", color: "#27ae60" },

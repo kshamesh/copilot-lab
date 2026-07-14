@@ -10,6 +10,7 @@ import { RHFTextField } from "../../../shared/forms/RHFTextField";
 import { RHFNumberField } from "../../../shared/forms/RHFNumberField";
 import { RHFTextarea } from "../../../shared/forms/RHFTextArea";
 import { RHFSelect } from "../../../shared/forms/RHFSelect";
+import { saveOperationRegistry } from "../save-operations/SaveOperationsRegistry";
 
 interface ProductFormProps {
   product?: Product;
@@ -56,6 +57,10 @@ const ProductForm = ({ product, onSave }: ProductFormProps) => {
     console.log(data);
 
     await onSave?.(data);
+
+    saveOperationRegistry.run("product", {
+      entityId: data.sku,
+    });
   };
 
   console.log("Errors", errors);
