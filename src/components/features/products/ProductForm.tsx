@@ -11,6 +11,8 @@ import { RHFNumberField } from "../../../shared/forms/RHFNumberField";
 import { RHFTextarea } from "../../../shared/forms/RHFTextArea";
 import { RHFSelect } from "../../../shared/forms/RHFSelect";
 import { saveOperationRegistry } from "../save-operations/SaveOperationsRegistry";
+import { useWorkflowForm } from "../workflow/useWorkflowForm";
+import { WorkflowFormIds } from "../workflow/workflow-form-ids";
 
 interface ProductFormProps {
   product?: Product;
@@ -30,6 +32,20 @@ const ProductForm = ({ product, onSave }: ProductFormProps) => {
     control,
     formState: { errors },
   } = methods;
+
+  useWorkflowForm<ProductFormData>({
+    id: WorkflowFormIds.Product,
+    form: {
+      trigger: methods.trigger,
+      getValues: methods.getValues,
+      reset: methods.reset,
+      getState: () => ({
+        isValid: methods.formState.isValid,
+        isDirty: methods.formState.isDirty,
+        errors: methods.formState.errors,
+      }),
+    },
+  });
 
   const { fields, append, remove } = useFieldArray({
     control,
@@ -63,7 +79,12 @@ const ProductForm = ({ product, onSave }: ProductFormProps) => {
     });
   };
 
-  console.log("Errors", errors);
+  const onSubmit2 = async () => {
+    console.log("onSubmit2");
+    saveOperationRegistry.run("product", {
+      entityId: "123345",
+    });
+  };
 
   // @ts-ignore
   return (
@@ -138,7 +159,7 @@ const ProductForm = ({ product, onSave }: ProductFormProps) => {
           {errors.tags?.root?.message && (
             <p className="error">{errors.tags.root.message}</p>
           )}
-          <button type="submit" className="save-btn">
+          <button onClick={onSubmit2} className="save-btn">
             Save Product
           </button>
         </form>
