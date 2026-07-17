@@ -13,6 +13,7 @@ import { RHFSelect } from "../../../shared/forms/RHFSelect";
 import { saveOperationRegistry } from "../save-operations/SaveOperationsRegistry";
 import { useWorkflowForm } from "../workflow/useWorkflowForm";
 import { WorkflowFormIds } from "../workflow/workflow-form-ids";
+import { createWorkflowForm } from "../workflow/workflow-helpers";
 
 interface ProductFormProps {
   product?: Product;
@@ -35,16 +36,7 @@ const ProductForm = ({ product, onSave }: ProductFormProps) => {
 
   useWorkflowForm<ProductFormData>({
     id: WorkflowFormIds.Product,
-    form: {
-      trigger: methods.trigger,
-      getValues: methods.getValues,
-      reset: methods.reset,
-      getState: () => ({
-        isValid: methods.formState.isValid,
-        isDirty: methods.formState.isDirty,
-        errors: methods.formState.errors,
-      }),
-    },
+    form: createWorkflowForm(methods),
   });
 
   const { fields, append, remove } = useFieldArray({

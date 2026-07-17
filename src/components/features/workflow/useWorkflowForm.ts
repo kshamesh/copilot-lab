@@ -4,7 +4,7 @@ import type { FieldValues } from "react-hook-form";
 import type { WorkflowForm } from "./workflow.types";
 import { workflowRegistry } from "./workflowRegistry";
 
-interface UseWorkflowFormOptions<T extends FieldValues> {
+interface Options<T extends FieldValues> {
   id: string;
   form: WorkflowForm<T>;
 }
@@ -12,7 +12,7 @@ interface UseWorkflowFormOptions<T extends FieldValues> {
 export function useWorkflowForm<T extends FieldValues>({
   id,
   form,
-}: UseWorkflowFormOptions<T>) {
+}: Options<T>) {
   useEffect(() => {
     workflowRegistry.register(id, form);
 
