@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useAppDispatch } from "../../../../store/hooks";
-import { addGift } from "../store/userGifts";
+import { addGift } from "../../store/userGifts";
 
 export function GiftToolbar() {
   const dispatch = useAppDispatch();

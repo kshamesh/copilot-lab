@@ -1,23 +1,23 @@
 import { useRef, useCallback } from "react";
-import { SearchToolbar } from "../SearchToolbar/SearchToolbar";
 import { SearchResultGrid } from "../grids/SearchResultGrid/SearchResultGrid";
-import { GiftToolbar } from "../GiftToolbar/GiftToolbar";
 import { UserSecuritiesGrid } from "../grids/UserSecuritiesGrid/UserSecuritiesGrid";
 import { UserGiftsGrid } from "../grids/UserGiftsGrid/UserGiftsGrid";
-import type { SecuritySearchCriteria } from "../SearchToolbar/types";
 import type { SearchResultGridRef } from "../grids/SearchResultGrid/types";
 import styles from "./SecurityPage.module.css";
+import { createMockSecurityDatasource } from "../../dataSources/createMockSecurityDataSources";
+import type { SecuritySearchCriteria } from "../SearchToolbar/types";
+import { SearchToolbar } from "../searchToolbar/SearchToolbar";
+import { GiftToolbar } from "../giftToolbar/GiftToolbar";
 
 export function SecurityPage() {
   const searchGridRef = useRef<SearchResultGridRef>(null);
 
   const handleSearch = useCallback((criteria: SecuritySearchCriteria) => {
-    // Phase 3
-    // const datasource = createSecurityDatasource(criteria);
+    const datasource = createMockSecurityDatasource({
+      criteria,
+    });
 
-    // searchResultGridRef.current?.setDatasource(datasource);
-
-    console.log(criteria);
+    searchGridRef.current?.setDatasource(datasource);
   }, []);
 
   return (

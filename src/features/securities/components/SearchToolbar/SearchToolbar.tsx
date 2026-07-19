@@ -1,8 +1,7 @@
 import { useState } from "react";
 
 import styles from "./SearchToolbar.module.css";
-
-import type { SecuritySearchCriteria, SearchToolbarProps } from "./types";
+import type { SearchToolbarProps, SecuritySearchCriteria } from "./types";
 
 export function SearchToolbar({ onSearch }: SearchToolbarProps) {
   const [ticker, setTicker] = useState("");

@@ -1,6 +1,6 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
-import type { Security } from "../../models/Security";
+import type { Security } from "../../components/models/Security";
 
 interface UserGiftsState {
   items: Security[];

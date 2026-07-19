@@ -1,6 +1,6 @@
 import { createSelector } from "@reduxjs/toolkit";
-import type { RootState } from "../../../../../store/store";
-import type { Security } from "../../models/Security";
+import type { RootState } from "../../../../store/store";
+import type { Security } from "../../components/models/Security";
 
 export const selectUserSecurities = (state: RootState) =>
   state.userSecurities.items;

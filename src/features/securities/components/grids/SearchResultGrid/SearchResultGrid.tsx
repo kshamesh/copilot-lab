@@ -12,12 +12,11 @@ import type { SearchResultGridRef, SearchResultGridProps } from "./types";
 import type { Security } from "../../models/Security";
 import AppGrid from "../AppGrid/AppGrid";
 
-import { selectAlreadyAddedIds } from "../../store/userSecurities/selectors";
-import { addSecurity } from "../../store/userSecurities/slice";
+import { selectAlreadyAddedIds } from "../../../store/userSecurities/selectors";
+import { addSecurity } from "../../../store/userSecurities/slice";
 import { createSearchColumnDefs } from "../../columns/search/createSearchColumnDefs";
 import { useAppDispatch } from "../../../../../store/hooks";
 import { useAppSelector } from "../../../../../store/hooks";
-import { mockSecurities } from "./mockData";
 
 export const SearchResultGrid = forwardRef<
   SearchResultGridRef,
@@ -54,7 +53,7 @@ export const SearchResultGrid = forwardRef<
 
       pagination: true,
 
-      paginationPageSize: 10,
+      paginationPageSize: 20,
     }),
     [],
   );

@@ -6,7 +6,7 @@ import {
   removeSecurity,
   selectUserSecurities,
   updateSecurity,
-} from "../../store/userSecurities";
+} from "../../../store/userSecurities";
 import type { CellValueChangedEvent } from "ag-grid-community";
 import { createUserSecurityColumnDefs } from "../../columns/userSecurities/createUserSecurityColumnDefs";
 import type { Security } from "../../models/Security";

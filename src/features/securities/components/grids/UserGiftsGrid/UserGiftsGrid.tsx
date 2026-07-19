@@ -8,7 +8,11 @@ import { useAppDispatch, useAppSelector } from "../../../../../store/hooks";
 
 import type { Security } from "../../models/Security";
 
-import { removeGift, selectUserGifts, updateGift } from "../../store/userGifts";
+import {
+  removeGift,
+  selectUserGifts,
+  updateGift,
+} from "../../../store/userGifts";
 import { createUserGiftColumnDefs } from "../../columns/gifts";
 
 export function UserGiftsGrid() {
