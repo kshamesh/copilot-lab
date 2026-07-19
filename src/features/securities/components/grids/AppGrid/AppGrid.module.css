@@ -1,0 +1,16 @@
+/* AppGrid.module.css */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* .grid {
+  width: 100%;
+  height: 500px;
+} */
+
+.grid {
+  height: 350px;
+}

@@ -2,17 +2,18 @@
 // import { API_CONFIG } from "./config/apiConfig";
 import "./App.css";
 // import ProductForm from "./components/features/products/ProductForm";
-import ProductPage from "./components/features/products/ProductPage";
-import { customerSaveOperation } from "./components/features/save-operations/registrations/customers.save-operation";
-import { productSaveOperation } from "./components/features/save-operations/registrations/product.save-operation";
-import { saveOperationRegistry } from "./components/features/save-operations/SaveOperationsRegistry";
+// import ProductPage from "./components/features/products/ProductPage";
+// import { customerSaveOperation } from "./components/features/save-operations/registrations/customers.save-operation";
+// import { productSaveOperation } from "./components/features/save-operations/registrations/product.save-operation";
+// import { saveOperationRegistry } from "./components/features/save-operations/SaveOperationsRegistry";
+import { SecurityPage } from "./features/securities/components/pages/SecurityPage";
 
 function App() {
-  saveOperationRegistry.clearAllRegistrations();
-  saveOperationRegistry.registerAll([
-    customerSaveOperation,
-    productSaveOperation,
-  ]);
+  // saveOperationRegistry.clearAllRegistrations();
+  // saveOperationRegistry.registerAll([
+  //   customerSaveOperation,
+  //   productSaveOperation,
+  // ]);
   // const getEnvironmentBadge = () => {
   //   const badges: Record<string, { label: string; color: string }> = {
   //     devlocal: { label: "📦 Local", color: "#27ae60" },
@@ -50,7 +51,8 @@ function App() {
     //     <PostManagement />
     //   </main>
     // </div>
-    <ProductPage />
+    // <ProductPage />
+    <SecurityPage />
   );
 }
 
