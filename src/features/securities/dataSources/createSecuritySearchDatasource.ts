@@ -4,7 +4,7 @@ import { mockSecurities } from "./mockSecurities";
 
 import type { CreateDatasourceOptions } from "./types";
 
-export function createMockSecurityDatasource(
+export function createSecuritySearchDatasource(
   options: CreateDatasourceOptions,
 ): IDatasource {
   return {

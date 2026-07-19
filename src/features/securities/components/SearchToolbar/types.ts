@@ -1,9 +1,13 @@
-export interface SecuritySearchCriteria {
+export interface SearchSecurityRequest {
   ticker: string;
 
   isin: string;
+
+  startRow: number;
+
+  endRow: number;
 }
 
 export interface SearchToolbarProps {
-  onSearch(criteria: SecuritySearchCriteria): void;
+  onSearch(criteria: SearchSecurityRequest): void;
 }
